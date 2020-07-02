@@ -1,2 +1,5 @@
 _gtfobins/*
 scan.txt
+__pycache__/
+suid-list.txt
+vul-suid-list.txt

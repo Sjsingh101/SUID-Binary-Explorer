@@ -9,7 +9,7 @@ def scan_sys():
 def get_info():
     if not os.path.isdir("_gtfobins"):
         try:
-            os.system("svn export https://github.com/GTFOBins/GTFOBins.github.io/trunk/_gtfobins")
+            os.system("gitdir https://github.com/GTFOBins/GTFOBins.github.io/tree/master/_gtfobins")
         except:
             print("check whether svn is installed or not")
 
