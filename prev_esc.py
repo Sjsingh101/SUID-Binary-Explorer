@@ -28,7 +28,7 @@ def list_vul_suid(bins):
     files = os.listdir('_gtfobins')
     for entry in bins:
         if entry+'.md'in files:
-            print(entry)
+            #print(entry)
             vul.append(entry)
     return vul
 

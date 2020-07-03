@@ -44,6 +44,26 @@ def iscontinue_exec():
     else:
         return True
 
+def print_lst(slist):
+    print("\tThe resultant list contains:-")
+    for entry in slist:
+        print("\t - "+entry)
+
+def detail(slist):
+    os.system("clear")
+    print("\nSelect SUID binary to get information upon")
+    enum_list = list(enumerate(slist,1))
+    for entry_id,entry in enum_list:
+        print("  "+str(entry_id)+"> "+entry)
+    option = int(input(">> "))
+    print("WOW,"+enum_list[option-1][1])
+    data = pesc.get_doc(enum_list[option-1][1])
+    #os.system("clear")
+    print("\t"+option +" binary details\n")
+    print(data)
+
+
+
 
 if __name__ =='__main__':
     welcome()
@@ -58,7 +78,7 @@ if __name__ =='__main__':
         if option == 1:
             list_suid = pesc.list_suid()
             # save in file
-            print(list_suid)
+            print_lst(list_suid)
             print("\nYour results are saved in suid-list.txt")
             with open("suid-list.txt", "w") as fout:
                 print(*list_suid, sep="\n", file=fout)
@@ -67,10 +87,13 @@ if __name__ =='__main__':
         elif option == 2:
             list_suid = pesc.list_suid()
             list_vul_suid = pesc.list_vul_suid(list_suid)
-            print(list_vul_suid)
+            print()
+            print_lst(list_vul_suid)
             print("\nYour results are saved in vul-suid-list.txt")
             with open("vul-suid-list.txt", "w") as fout:
                 print(*list_vul_suid, sep="\n", file=fout)
+            if input("\nWould you like to get more detail on these binaries?[y/n] : ") == 'y':
+                detail(list_vul_suid)
             if iscontinue_exec():
                 break
         elif option == 3:
