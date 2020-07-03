@@ -45,22 +45,28 @@ def iscontinue_exec():
         return True
 
 def print_lst(slist):
-    print("\tThe resultant list contains:-")
+    os.system("clear")
+    print("The resultant list contains:-")
     for entry in slist:
-        print("\t - "+entry)
+        print(" - "+entry)
 
 def detail(slist):
-    os.system("clear")
-    print("\nSelect SUID binary to get information upon")
-    enum_list = list(enumerate(slist,1))
-    for entry_id,entry in enum_list:
-        print("  "+str(entry_id)+"> "+entry)
-    option = int(input(">> "))
-    print("WOW,"+enum_list[option-1][1])
-    data = pesc.get_doc(enum_list[option-1][1])
-    #os.system("clear")
-    print("\t"+option +" binary details\n")
-    print(data)
+    while(True):
+        os.system("clear")
+        print("\nSelect SUID binary to get information upon")
+        enum_list = list(enumerate(slist,1))
+        for entry_id,entry in enum_list:
+            print("  "+str(entry_id)+"> "+entry)
+        print("  "+str(len(slist)+1)+"> "+"go back to main menu")
+        option = int(input(">> "))
+        if option == len(slist)+1:
+            break 
+        bin_name = enum_list[option-1][1]
+        data = pesc.get_doc(bin_name)
+        os.system("clear")
+        print("\t"+bin_name +" binary details\n")
+        print(data)
+        iscontinue_exec()
 
 
 
@@ -94,8 +100,8 @@ if __name__ =='__main__':
                 print(*list_vul_suid, sep="\n", file=fout)
             if input("\nWould you like to get more detail on these binaries?[y/n] : ") == 'y':
                 detail(list_vul_suid)
-            if iscontinue_exec():
-                break
+                if iscontinue_exec():
+                    break
         elif option == 3:
             option = input("    Enter SUID binary name : ")
             try:
