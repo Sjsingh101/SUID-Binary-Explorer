@@ -24,6 +24,7 @@ def list_suid():
     return bins
 
 def list_vul_suid(bins):
+    get_info()
     vul=[]
     files = os.listdir('_gtfobins')
     for entry in bins:
@@ -33,6 +34,7 @@ def list_vul_suid(bins):
     return vul
 
 def get_doc(cmd):
+    get_info()
     try:
         with open('_gtfobins/'+cmd+'.md') as file:
             data = file.read()

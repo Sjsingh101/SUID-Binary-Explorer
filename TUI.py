@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import prev_esc as pesc
 import time 

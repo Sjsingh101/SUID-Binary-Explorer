@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'main.ui'
@@ -7,8 +8,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import PyQt5
+import PyQt5.QtCore as QCore
 import prev_esc as pesc
+import threading
+import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -47,13 +50,14 @@ class Ui_MainWindow(object):
         self.radioButton.setChecked(True)
         self.buttonBox = QtWidgets.QDialogButtonBox(self.groupBox_2)
         self.buttonBox.setGeometry(QtCore.QRect(180, 110, 81, 25))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Apply)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.radioButton_2 = QtWidgets.QRadioButton(self.groupBox_2)
         self.radioButton_2.setGeometry(QtCore.QRect(10, 70, 251, 23))
         self.radioButton_2.setObjectName("radioButton_2")
         #select option and save
         self.buttonBox.clicked.connect(self.option)
+        
 
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(310, 10, 271, 271))
@@ -70,7 +74,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setObjectName("lineEdit")
         self.buttonBox_2 = QtWidgets.QDialogButtonBox(self.groupBox_3)
         self.buttonBox_2.setGeometry(QtCore.QRect(180, 80, 81, 25))
-        self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Apply)
+        self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox_2.setCenterButtons(False)
         self.buttonBox_2.setObjectName("buttonBox_2")
         self.label_3 = QtWidgets.QLabel(self.groupBox_3)
@@ -84,6 +88,7 @@ class Ui_MainWindow(object):
 
         #search option and display
         self.buttonBox_2.clicked.connect(self.search)
+        
 
         self.line_2 = QtWidgets.QFrame(self.centralwidget)
         self.line_2.setGeometry(QtCore.QRect(290, 0, 20, 301))
@@ -98,7 +103,7 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.label.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
+        self.label.setTextInteractionFlags(QCore.Qt.TextSelectableByMouse)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -113,6 +118,8 @@ class Ui_MainWindow(object):
         self.groupBox_3.setTitle(_translate("MainWindow", "Search exploit from GTFOBins"))
         self.label_3.setText(_translate("MainWindow", "Input : "))
     
+
+
     def option(self):
         btn1 = self.radioButton.isChecked()
         btn2 = self.radioButton_2.isChecked()
@@ -127,6 +134,7 @@ class Ui_MainWindow(object):
             self.label.setText("**File saved at vul-suid-list.txt**\n\n "+list_vul_str)
         else:
             self.label.setText("Error Occured")
+        
 
 
     def search(self):
@@ -137,7 +145,8 @@ class Ui_MainWindow(object):
 
 
 if __name__ == "__main__":
-    import sys
+    download_thread = threading.Thread(target=pesc.get_info)
+    download_thread.start()
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
