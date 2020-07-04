@@ -13,7 +13,7 @@ def welcome():
     \t\t▄   ▄
     \t\t█▀█▀█    
     \t\t█▄█▄█        WELCOME TO SUID          
-    \t\t─███──▄▄     BINARIES EXPLOIT
+    \t\t─███──▄▄     BINARIES EXPLORER
     \t\t─████▐█─█                       
     \t\t─████───█
     \t\t─▀▀▀▀▀▀▀
