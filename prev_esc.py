@@ -33,8 +33,11 @@ def list_vul_suid(bins):
     return vul
 
 def get_doc(cmd):
-    with open('_gtfobins/'+cmd+'.md') as file:
-        data = file.read()
+    try:
+        with open('_gtfobins/'+cmd+'.md') as file:
+            data = file.read()
+    except:
+        data = "Binary not present in GTFOBins"
     return data
 
 if __name__ == "__main__":

@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import PyQt5
+import prev_esc as pesc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -96,7 +98,7 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
+        self.label.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -104,7 +106,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "SUID Binary Explorer"))
         self.groupBox.setTitle(_translate("MainWindow", "Display Console Window"))
-        self.label.setText(_translate("MainWindow", "a\n""b"))
+        self.label.setText(_translate("MainWindow", "Console"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Select Option"))
         self.radioButton.setText(_translate("MainWindow", "List all binaries in system"))
         self.radioButton_2.setText(_translate("MainWindow", "Commom with listed in GTFOBins"))
@@ -112,10 +114,26 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Input : "))
     
     def option(self):
-        print(self.radioButton.isChecked())
+        btn1 = self.radioButton.isChecked()
+        btn2 = self.radioButton_2.isChecked()
+        if btn1:
+            list_all = pesc.list_suid()
+            list_all_str = ' '.join([str(str(element[0]+1)+") "+element[1])+"\n" for element in enumerate(list_all)])
+            self.label.setText("**File saved at suid-list.txt**\n\n "+list_all_str)
+        elif btn2:
+            list_all = pesc.list_suid()
+            list_vul = pesc.list_vul_suid(list_all)
+            list_vul_str = ' '.join([str(str(element[0]+1)+") "+element[1])+"\n" for element in enumerate(list_vul)])
+            self.label.setText("**File saved at vul-suid-list.txt**\n\n "+list_vul_str)
+        else:
+            self.label.setText("Error Occured")
+
 
     def search(self):
-        print(self.lineEdit.text())
+        query = self.lineEdit.text()
+        result = pesc.get_doc(query)
+        self.label.setText("**Exploitation method** \n\n"+result)
+
 
 
 if __name__ == "__main__":
