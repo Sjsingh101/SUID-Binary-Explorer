@@ -4,3 +4,4 @@ __pycache__/
 suid-list.txt
 vul-suid-list.txt
 test/
+Docs/*
